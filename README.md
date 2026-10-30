@@ -1,3 +1,18 @@
+> ## 🤖 Grok Bot 版 / Grok Bot fork
+>
+> 这是基于 [Charonyuu/whatsmyagentdoing](https://github.com/Charonyuu/whatsmyagentdoing) 的 Fork，加了 **Grok Bot** 支持：你的每个 Grok Bot 机器人都会变成办公室里的一个人。
+> This is a fork of [Charonyuu/whatsmyagentdoing](https://github.com/Charonyuu/whatsmyagentdoing) that adds **Grok Bot** support: each of your Grok Bot agents becomes a worker in the office.
+>
+> **三步接入 / Three steps**
+> 1. 让你的 Grok Bot 把这个仓库 clone 到它的电脑上（需要 Node 18+）/ Ask your Grok Bot to clone this repo onto its computer (Node 18+ required): `git clone https://github.com/lawrencewzen/whatsmyagentdoing`
+> 2. 在仓库目录里运行 / In the repo, run: `node bin/cli.js --private`
+> 3. 打开本地地址（默认 http://localhost:4545）/ Open the local URL (default http://localhost:4545)
+>
+> 说明：机器人状态（思考、干活、等你回复、干完）是根据消息时间近似推断的；读取的是 Grok Bot 应用的内部数据（只读，不显示对话内容），默认目录 `/home/box/agent-data`，可用环境变量 `GROKBOT_DATA` 覆盖，设置 `WMAD_GROKBOT=0` 可关闭。Grok Bot 应用更新后可能失效。
+> Notes: bot status is approximated from message timestamps. It reads Grok Bot's internal app data read-only (no conversation content is shown); default dir `/home/box/agent-data`, override with `GROKBOT_DATA`, disable with `WMAD_GROKBOT=0`. May break when the Grok Bot app updates.
+>
+> 原作者署名与 LICENSE 保持不变 / Original author credit and LICENSE unchanged.
+
 <img src="assets/logo.svg" width="64" height="64" alt="">
 
 # whatsmyagentdoing

@@ -82,6 +82,8 @@ function view(s, now, { privacy }) {
     out.prompt = out.reply = out.title = null;
     if (out.activity) out.activity = out.activity.split(/[:\s]/)[0];
   }
+  // Grok Bot workers: the bot's own name is its label, not conversation content.
+  if (s.agent === 'grokbot') { out.project = s.agentName; out.title = s.agentName; out.agentName = s.agentName; }
   return out;
 }
 

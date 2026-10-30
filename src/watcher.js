@@ -16,6 +16,7 @@ const { clientFiles, metadata, applyKimi, applyDsh, applyGrok, readDsh } = requi
 const { ompDirs } = require('./omp');
 const hook = require('./hook');
 const { transcript } = require('./transcript');
+const { GrokBotSource } = require('./grokbot');
 
 const HEAD_BYTES = 128 * 1024;
 const TAIL_BYTES = 768 * 1024;
@@ -225,17 +226,20 @@ class Watcher extends EventEmitter {
     });
     this.ompDir = ompDir;
     this.ompParentIds = new Map(); // parent log -> { mtime, size, id }
+    this.grokbot = process.env.WMAD_GROKBOT === '0' ? null : new GrokBotSource();
+    if (this.grokbot) this.grokbot.on('change', () => this.emit('change'));
     this.waiting = new Map(); // Claude session ID -> { at, message } from the optional hook
   }
 
   start() {
     this.tick();
+    if (this.grokbot) this.grokbot.start();
     for (const source of this.magpies) source.start();
     this.timer = setInterval(() => this.tick(), this.interval);
     return this;
   }
 
-  stop() { clearInterval(this.timer); for (const source of this.magpies) source.stop(); }
+  stop() { clearInterval(this.timer); if (this.grokbot) this.grokbot.stop(); for (const source of this.magpies) source.stop(); }
 
   loadCodexIndex() {
     const st = statSafe(CODEX_INDEX);
@@ -553,6 +557,7 @@ class Watcher extends EventEmitter {
       }
       out.push(s);
     }
+    if (this.grokbot) out.push(...this.grokbot.sessions());
     if (!this.magpies.length) return out;
     const remote = new Map();
     // Magpie's native records carry richer metadata than gateway projections.

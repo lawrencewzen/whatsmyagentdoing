@@ -31,6 +31,7 @@
     kimi: { label: 'Kimi Code', short: 'Ki', logo: '/assets/agents/kimi.svg', mono: true },
     dsh: { label: 'DSH', short: 'Ds', logo: '/assets/agents/dsh.svg' },
     grok: { label: 'Grok Build', short: 'Gr', logo: '/assets/agents/grok.svg', mono: true },
+    grokbot: { label: 'Grok Bot', short: 'GB', logo: '/assets/agents/grok.svg', mono: true },
     omp: { label: 'OMP', short: 'OMP', color: '#a96926', logo: '/assets/agents/omp.svg' },
   };
   for (const badge of Object.values(AGENT_BADGES)) {
